@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+</head>
+<body>
+<form action="#" th:action="@{/api/customer/save}" method="POST">
+    <table border="1">
+        <tr>
+            <td><label th:text="'Customer ID'"/></td>
+            <td><input type="hidden" th:value="${customer.id}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Full name'"/></td>
+            <td><input type="text" th:field="*{customer.fullName}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Address'"/></td>
+            <td><input type="text" th:field="*{customer.address}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Date of Birth'"/></td>
+            <td><input type="date" th:field="*{customer.dateOfBirth}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Phone Number'"/></td>
+            <td><input type="text" th:field="*{customer.phoneNumber}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

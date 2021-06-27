@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+</head>
+
+<body>
+<nav class="navbar">
+    <div class="navbar">
+        <div class="navbar-btn">Customers</div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Full Name</td>
+            <td>Phone Number</td>
+            <td>Address</td>
+            <td>Date of birth</td>
+            <td>Created at</td>
+            <td>Updated at</td>
+            <td colspan="7">Action</td>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer:${customers}">
+            <td th:text="${customer.id}"/>
+            <td th:text="${customer.fullName}"/>
+            <td th:text="${customer.phoneNumber}"/>
+            <td th:text="${customer.address}"/>
+            <td th:text="${customer.dateOfBirth}"/>
+            <td th:text="${customer.createdAt}"/>
+            <td th:text="${customer.updatedAt}"/>
+            <td><a th:href="@{/api/customer/{id}/loans/(id=${customer.id})}" method="GET"> Loans </a></td>
+            <td><a th:href="@{/api/customer/update/{id}(id=${customer.id}) }">Update </a></td>
+            <td><a th:href="@{/api/customer/delete/{id}(id=${customer.id}) }" method="POST"> Delete </a></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <form th:action="@{/api/customer/new}" method="GET"
+          name="add Customer" id="addCustomer">
+        <input type="submit" value="Add customer">
+    </form>
+    <form th:action="@{/logout}" method="POST"
+          name="logoutForm" id="logout">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+</body>
+</html>
+

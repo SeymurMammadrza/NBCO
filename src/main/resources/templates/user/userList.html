@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+</head>
+
+<body>
+<nav class="navbar">
+    <div class="navbar">
+        <div class="navbar-btn">Users</div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Email</td>
+            <td>Phone Number</td>
+            <td>Roles</td>
+            <td>Created at</td>
+            <td>Updated at</td>
+            <td colspan="8">Action</td>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user:${users}">
+            <td th:text="${user.id}"/>
+            <td th:text="${user.username}"/>
+            <td th:text="${user.fullName}"/>
+            <td th:text="${user.email}"/>
+            <td th:text="${user.phoneNumber}"/>
+            <td th:text="${user.roles}"/>
+            <td th:text="${user.createdAt}"/>
+            <td th:text="${user.updatedAt}"/>
+            <td><a th:href="@{/api/user/delete/{id}(id=${user.id}) }" method="POST"> Delete </a></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <form th:action="@{/api/user/new}" method="GET"
+          name="addUser" id="addUser">
+        <input type="submit" value="Add User">
+    </form>
+    <form th:action="@{/logout}" method="POST"
+          name="logoutForm" id="logout">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+</body>
+</html>
+

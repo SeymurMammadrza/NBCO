@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+</head>
+
+<body>
+<nav class="navbar">
+    <div class="navbar">
+        <div class="navbar-btn">Loans by Customer</div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Loan ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Duration</th>
+            <th>Interest rate ( % )</th>
+            <th>Total amount ( $ )</th>
+            <th colspan="6">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="loan:${loans}">
+            <td th:text="${loan.id}"></td>
+            <td th:text="${loan.startDate}"></td>
+            <td th:text="${loan.endDate}"></td>
+            <td th:text="${loan.duration}"></td>
+            <td th:text="${loan.percentage}"></td>
+            <td th:text="${loan.amount}"></td>
+            <td><a type="number" th:href="@{/api/loan/{id}/payments(id=${loan.id})}" method="GET"> Payments </a></td>
+            <td><a th:href="@{/api/loan/update/{id}(id=${loan.id}) }">Update </a></td>
+            <td><a th:href="@{/api/loan/delete/{id}(id=${loan.id}) }" method="POST"> Delete </a></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <p th:object="${customer}">
+        <a th:href="@{/api/customer/{id}/loans/new/(id=${customer.id})}">Add a new loan to the customer </a>
+        <br>
+        <a th:href="@{/api/customer/list}">Back to Customers </a>
+    </p>
+</div>
+</body>
+</html>

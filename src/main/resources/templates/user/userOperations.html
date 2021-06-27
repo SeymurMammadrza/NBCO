@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+</head>
+<body>
+</table>
+<form action="#" th:action="@{/api/user/save}" method="POST">
+    <table border="1">
+        <tr>
+            <td><label th:text="'User ID'"/></td>
+            <td><input type="number" readonly th:value="${user.id}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'User name'"/></td>
+            <td><input type="text" th:field="*{user.username}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Password'"/></td>
+            <td><input type="password" th:field="*{user.password}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Password Confirm'"/></td>
+            <td><input type="password" th:field="*{user.passwordConfirm}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Full name'"/></td>
+            <td><input type="text" th:field="*{user.fullName}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'E-mail'"/></td>
+            <td><input type="text" th:field="*{user.email}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Phone Number'"/></td>
+            <td><input type="text" th:field="*{user.phoneNumber}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Role'"/></td>
+            <td>
+                <select th:field="*{user.roles}" class="form-control" id="roleAssignment" name="userRoles">
+                    <option th:each="role : ${rolesList}"
+                            th:value="*{role.id}"
+                            th:text="*{role.name}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
+        </tr>
+    </table>
+    </div>
+
+</form>
+</body>
+</html>

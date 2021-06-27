@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+
+</head>
+<body>
+<form action="#" th:action="@{/api/loan/{id}/payments/save/(id=${loan.id})}" method="POST">
+    <table border="1">
+<!--        <tr>-->
+<!--            <td><label th:text="'Payment ID'"/></td>-->
+<!--            <td><input type="number" th:value="${payment.id}"/></td>-->
+<!--        </tr>-->
+        <tr>
+            <td><label th:text="'Loan ID'"/></td>
+            <td><input type="number" readonly th:field="${payment.loan.id}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Payment Date'"/></td>
+            <td><input type="date" th:field="*{payment.paymentDate}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Interest Charge ( $ )'"/></td>
+            <td><input type="number" th:field="*{payment.interestCharge}"/></td>
+        </tr>
+        <tr>
+            <td><label th:text="'Amount( % )'"/></td>
+            <td><input type="number" th:field="*{payment.amount}"/></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit"/></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

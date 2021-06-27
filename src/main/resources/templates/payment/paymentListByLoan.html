@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+</head>
+
+<body>
+<nav class="navbar">
+    <div class="navbar">
+        <div class="navbar-btn">Payments by Loan</div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Payment ID</th>
+            <th>Date</th>
+            <th>Interest charge ( $ )</th>
+            <th>Amount ( $ )</th>
+            <th>Debt before the payment ( $ )</th>
+            <th>Remaining debt ( $ )</th>
+            <th colspan="6">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="payment:${payments}">
+            <td th:text="${payment.id}"></td>
+            <td th:text="${payment.paymentDate}"></td>
+            <td th:text="${payment.interestCharge}"></td>
+            <td th:text="${payment.amount}"></td>
+            <td th:text="*{payment.getDebtBeforePayment(loan.id)}"></td>
+            <td th:text="*{payment.getRemainingDebt(loan.id)}"></td>
+            <td><a th:href="@{/api/payment/update/{id}(id=${payment.id}) }">Update </a></td>
+            <td><a th:href="@{/api/payment/delete/{id}(id=${payment.id}) }" method="POST"> Delete </a></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <p th:object="${loan}">
+        <a th:href="@{/api/loan/{id}/payments/new/(id=${loan.id})}">Add a new payment to the loan </a>
+        <br>
+        <a th:href="@{/api/customer/{id}/loans/(id=${customer.id})}">Back to Loans of the customer </a>
+    </p>
+</div>
+</body>
+</html>
