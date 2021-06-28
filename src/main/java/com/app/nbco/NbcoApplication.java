@@ -19,24 +19,4 @@ public class NbcoApplication {
         SpringApplication.run(NbcoApplication.class, args);
     }
 
-    @Autowired
-    public UserRepository userRepository;
-    @Autowired
-    public RoleRepository roleRepository;
-
-    @PostConstruct
-    @Order(1)
-    public void init() {
-        if (roleRepository.findByName("ADMIN") == null) {
-            Role roleAdmin = new Role(0L, "ADMIN");
-            roleRepository.save(roleAdmin);
-            return;
-        }
-        if (roleRepository.findByName("USER") == null) {
-            Role roleUser = new Role(1L, "USER");
-            roleRepository.save(roleUser);
-            return;
-        }
-    }
-
 }

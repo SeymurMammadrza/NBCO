@@ -34,8 +34,8 @@
             <td th:text="${payment.paymentDate}"></td>
             <td th:text="${payment.interestCharge}"></td>
             <td th:text="${payment.amount}"></td>
-            <td th:text="*{payment.getDebtBeforePayment(loan.id)}"></td>
-            <td th:text="*{payment.getRemainingDebt(loan.id)}"></td>
+            <td th:text="*{payment.debtBeforePayment}"></td>
+            <td th:text="*{payment.remainingDebt}"></td>
             <td><a th:href="@{/api/payment/update/{id}(id=${payment.id}) }">Update </a></td>
             <td><a th:href="@{/api/payment/delete/{id}(id=${payment.id}) }" method="POST"> Delete </a></td>
         </tr>

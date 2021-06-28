@@ -2,11 +2,14 @@ package com.app.nbco.payment.entity;
 
 import com.app.nbco.loan.entity.Loan;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jdk.dynalink.linker.LinkerServices;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,16 +35,30 @@ public class Payment {
     @Column(name = "interest_charge")
     private Long interestCharge;
 
+    @Column(name = "debt_before_payment")
+    private Long debtBeforePayment;
+
+    @Column(name = "remainingDebt")
+    private Long remainingDebt;
+
     @ManyToOne
     private Loan loan;
 
     public Long getDebtBeforePayment(Loan loan) {
-        long debtBeforePayment = loan.getAmount();
+        List<Payment> payments = loan.getPayments();
+
+        Long totalAmountOfPaidPayments = 0L;
+
+        for(Payment payment: payments){
+            if(payment.id < this.id) totalAmountOfPaidPayments += payment.amount;
+        }
+
+        Long debtBeforePayment = loan.getAmount() - totalAmountOfPaidPayments;
         return debtBeforePayment;
     }
-
     public Long getRemainingDebt(Loan loan) {
-        long remainingDebt = loan.getAmount() - amount;
+
+        Long remainingDebt = getDebtBeforePayment(loan) - this.amount;
         return remainingDebt;
     }
 }
