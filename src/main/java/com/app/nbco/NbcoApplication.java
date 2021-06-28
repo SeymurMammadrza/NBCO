@@ -30,11 +30,13 @@ public class NbcoApplication {
         if (roleRepository.findByName("ADMIN") == null) {
             Role roleAdmin = new Role(0L, "ADMIN");
             roleRepository.save(roleAdmin);
-        } else;
+            return;
+        }
         if (roleRepository.findByName("USER") == null) {
             Role roleUser = new Role(1L, "USER");
             roleRepository.save(roleUser);
-        } else;
+            return;
+        }
     }
 
 }

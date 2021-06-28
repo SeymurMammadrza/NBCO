@@ -38,10 +38,10 @@ public class LoanService {
         loanRepository.delete(findById(id));
     }
 
-    public Loan updateById(Long id, Loan loan) {
+    public void updateById(Long id, Loan loan) {
         loanRepository.findById(id);
         loan.setId(id);
-        return loanRepository.save(loan);
+        loanRepository.save(loan);
     }
 
     public List<Payment> getPaymentsByLoanId(Long id) {

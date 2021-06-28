@@ -55,7 +55,7 @@ public class Customer {
     }
 
     @Column(name = "loans")
-    @OneToMany(mappedBy = "customer",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
     private List<Loan> loans = new ArrayList<>();
 
     public Customer(Long id) {

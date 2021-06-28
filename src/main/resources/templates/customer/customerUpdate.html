@@ -7,7 +7,7 @@
 
 </head>
 <body>
-<form action="#" th:action="@{/api/customer/save}" method="POST">
+<form action="#" th:action="@{/api/customer/update/{id}(id=${customer.id})}" method="POST">
     <table border="1">
         <tr>
             <td><label th:text="'Customer ID'"/></td>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
@@ -35,13 +36,17 @@ public class CustomerController {
         List<Loan> loans = customer.getLoans();
         log.info("customer ={}", customer);
         log.info("loans = {}", customer.getLoans());
+        for (Loan loan : customer.getLoans()) {
+            loan.setAmount(loan.getAmount() - loan.getPayments().stream().map(payment -> payment.getAmount()).collect(Collectors.toList()).stream().mapToLong(value -> value).sum());
+        }
+
         model.addAttribute("customer", customer);
         model.addAttribute("loans", loans);
         return "loan/loanListByCustomer";
     }
 
     @GetMapping("{id}/loans/new")
-    public String newLoanToCustomer(Model model,Loan loan, @PathVariable("id") Long id) {
+    public String newLoanToCustomer(Model model, Loan loan, @PathVariable("id") Long id) {
         Customer customer = customerService.findById(id);
         loan.setCustomer(customer);
         model.addAttribute("customer", customer);
@@ -90,6 +95,12 @@ public class CustomerController {
     public String deleteCustomer(@PathVariable("id") Long id) {
         customerService.deleteById(id);
         System.out.println("customer deleted");
+        return "redirect:/api/customer/list";
+    }
+
+    @PostMapping("/update/{id}")
+    public String UpdateCustomerPost(Customer customer, @PathVariable("id") Long id) {
+        customerService.updateById(id,customer);
         return "redirect:/api/customer/list";
     }
 }

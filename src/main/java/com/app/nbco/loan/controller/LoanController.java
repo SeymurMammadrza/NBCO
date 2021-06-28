@@ -36,6 +36,10 @@ public class LoanController {
         List<Payment> payments = loan.getPayments();
         log.info("loan ={}", loan);
         log.info("payments = {}", payments);
+
+//        for (Payment payment:payments){
+//
+//        }
         model.addAttribute("customer",customer);
         model.addAttribute("loan", loan);
         model.addAttribute("payments", payments);
@@ -60,7 +64,7 @@ public class LoanController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateLoan(Model model, @PathVariable("id") Long id) {
+    public String getUpdateLoan(Model model, @PathVariable("id") Long id) {
         Loan loan = loanService.findById(id);
         Customer customer = loan.getCustomer();
         model.addAttribute("customer",customer);
@@ -78,6 +82,12 @@ public class LoanController {
     @Transactional
     public String saveLoan(@ModelAttribute Loan loan) {
         loanService.save(loan);
+        return "redirect:/api/customer/list";
+    }
+
+    @PostMapping("/update/{id}")
+    public String UpdateLoanPost(Loan loan, @PathVariable("id") Long id) {
+        loanService.updateById(id,loan);
         return "redirect:/api/customer/list";
     }
 }

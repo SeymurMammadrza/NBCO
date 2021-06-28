@@ -23,7 +23,7 @@ public class PaymentController {
     }
 
     @GetMapping("/update/{id}")
-    public String updatePayment(Model model, @PathVariable("id") Long id) {
+    public String getUpdatePayment(Model model, @PathVariable("id") Long id) {
         Payment payment = paymentService.findById(id);
         Loan loan = payment.getLoan();
         model.addAttribute("payment", payment);
@@ -34,6 +34,12 @@ public class PaymentController {
     @GetMapping("/delete/{id}")
     public String deletePayment(@PathVariable("id") Long id) {
         paymentService.deleteById(id);
+        return "redirect:/api/customer/list";
+    }
+
+    @PostMapping("/update/{id}")
+    public String UpdatePaymentPost(Payment payment, @PathVariable("id") Long id) {
+        paymentService.updateById(id,payment);
         return "redirect:/api/customer/list";
     }
 
